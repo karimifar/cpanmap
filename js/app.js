@@ -173,12 +173,12 @@ map.on('load', function () {
         'paint':{
             "line-color": ["case",
                 ["boolean", ["feature-state", "hover"], false],
-                "#111",
+                "#222",
                 "#999"
             ],
             "line-width": ["case",
                 ["boolean", ["feature-state", "hover"], false],
-                1,
+                2,
                 0.1
             ],
         }
