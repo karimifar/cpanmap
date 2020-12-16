@@ -7,17 +7,20 @@ var bounds = [
 ];
 var firstSymbolId;
 var hoveredInstId = null;
-
+var zoomThreshold = 5.5
 var COLORS = ['#4899D5','#2C3C7E','#0085CF','#BFAD83','#EAAB00','#EFB666','#D7A3B3','#90313E','#BF3B3B','#DA2B1F','#497B59', "#719B50"]
 var outlines = ["#005782", "#ED8C00", "#C7362D", "#00973A"]
+
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/karimifar/ck2ey2mad1rtp1cmppck4wq2d',
     center: [-99.113241, 31.079125],
-    zoom: 4.5,
-    maxBounds: bounds,
+    zoom: 5,
+    // maxBounds: bounds,
 });
 map.getCanvas().style.cursor = "auto"
+
+
 
 map.on('load', function () {
     var layers = map.getStyle().layers;
@@ -43,7 +46,7 @@ map.on('load', function () {
         'id': 'region_fill',
         'type': 'fill',
         'source':'regions',
-        // 'minzoom': zoomThreshold,
+        'maxzoom': zoomThreshold,
         'paint':{
             "fill-color": ["match",
                 ["get", "id"], 
@@ -63,7 +66,7 @@ map.on('load', function () {
         'layout': {
             'visibility':'visible'
         },
-        // 'minzoom': zoomThreshold,
+        'minzoom': zoomThreshold,
         'paint':{
             'fill-color':[
                 'match',
@@ -107,7 +110,7 @@ map.on('load', function () {
         'id': 'inst_outline',
         'type': 'line',
         'source':'institutions',
-        // 'minzoom': zoomThreshold,
+        'minzoom': zoomThreshold,
         'paint':{
             "line-color": ["case",
                 ["boolean", ["feature-state", "hover"], false],
@@ -138,7 +141,6 @@ map.on('load', function () {
             var inst_num = e.features[0].properties.dial_num
             $("#popup1").css("display","block")
             $("#popup1").html("<p>This area is covered by</p><p class='inst-name'>"+inst+"</p>")
-            $("#popup2").html("<p>If you are in this region, dial <span>" + region_num+"</span> first, then <span>" + inst_num+"</span></p>")
 
             map.getCanvas().style.cursor = "pointer"
             hoveredInstId = e.features[0].id;
@@ -158,6 +160,35 @@ map.on('load', function () {
         $("#popup1").css("display","none")
         hoveredInstId = null;
         map.getCanvas().style.cursor = "auto"
+    });
+
+    // $("#mapwrap").on("click", function(){
+    //     $("#popup2").css("display", "none")
+    // })
+    map.on('click', 'inst_fills',function (e) {
+        console.log(hoveredInstId)
+        if (hoveredInstId || hoveredInstId==0) {
+            $("#popup2").css("display", "block")
+            var inst = e.features[0].properties.name
+            var region_num = e.features[0].properties.region_num
+            var inst_num = e.features[0].properties.dial_num
+            $("#popup2").html("<h2>" + inst+"</h2>")
+            $("#popup2").append("<p>If you are in this region, dial <span>" + region_num+"</span> first, then <span>" + inst_num+"</span></p>")
+
+        }else{
+            $("#popup2").css("display", "none")
+        }
+        
+    });
+    map.on('click', function (e) {
+        console.log(hoveredInstId)
+        if (hoveredInstId || hoveredInstId==0) {
+            $("#popup2").css("display", "block")
+            
+        }else{
+            $("#popup2").css("display", "none")
+        }
+        
     });
 
 });
