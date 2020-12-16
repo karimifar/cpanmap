@@ -19,7 +19,8 @@ var map = new mapboxgl.Map({
     // maxBounds: bounds,
 });
 map.getCanvas().style.cursor = "auto"
-
+var nav = new mapboxgl.NavigationControl();
+map.addControl(nav, 'top-right');
 
 
 map.on('load', function () {
