@@ -140,7 +140,7 @@ map.on('load', function () {
             var region_num = e.features[0].properties.region_num
             var inst_num = e.features[0].properties.dial_num
             $("#popup1").css("display","block")
-            $("#popup1").html("<p>This area is covered by</p><p class='inst-name'>"+inst+"</p>")
+            $("#popup1").html("<p class='inst-name'>"+inst+"</p>")
 
             map.getCanvas().style.cursor = "pointer"
             hoveredInstId = e.features[0].id;
@@ -173,7 +173,7 @@ map.on('load', function () {
             var region_num = e.features[0].properties.region_num
             var inst_num = e.features[0].properties.dial_num
             $("#popup2").html("<h2>" + inst+"</h2>")
-            $("#popup2").append("<p>If you are in this region, dial <span>" + region_num+"</span> first, then <span>" + inst_num+"</span></p>")
+            $("#popup2").append("<p>Region code: <span>" + region_num+"</span></p><p>Institution Code: <span>" + inst_num+"</span></p>")
 
         }else{
             $("#popup2").css("display", "none")
@@ -201,7 +201,7 @@ $("#mapwrap").on("mousemove", function(e){
     var mouseX=e.clientX
     var mouseY=e.clientY
     $("#popup1").css("top", mouseY-divY+18)
-    $("#popup1").css("left", mouseX-divX-125)
+    $("#popup1").css("left", mouseX-divX-100)
 })
 
 
