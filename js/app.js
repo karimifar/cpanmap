@@ -16,6 +16,8 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/karimifar/ck2ey2mad1rtp1cmppck4wq2d',
     center: [-99.113241, 31.079125],
     zoom: 5,
+    maxZoom: 9,
+    minZoom:3.5
     // maxBounds: bounds,
 });
 map.getCanvas().style.cursor = "auto"
@@ -42,6 +44,11 @@ map.on('load', function () {
         data: "https://texashealthdata.com/CPAN/region",
         generateId: true,
     })
+    map.addSource("counties", {
+        type: "geojson",
+        data: "https://texashealthdata.com/NAS/counties",
+        generateId: true,
+    })
     map.addSource("regions-points", {
         type: "geojson",
         data: {
@@ -58,6 +65,20 @@ map.on('load', function () {
             
         generateId: true,
     })
+
+    map.addLayer({
+        'id': 'counties-outline',
+        'type': 'line',
+        'source':'counties',
+        'minzoom': zoomThreshold,
+        'paint':{
+            "line-color": "#000",
+            "line-width": 1,
+            "line-opacity": 0.5
+        }
+    }, firstSymbolId);
+
+    
 
     map.addLayer({
         'id': 'region_fill',
@@ -106,6 +127,27 @@ map.on('load', function () {
     },firstSymbolId);
 
     map.addLayer({
+        'id': 'counties-text',
+        'type': 'symbol',
+        'source':'counties',
+        'minzoom': zoomThreshold+0.7,
+        'layout': {
+            // get the title name from the source's "title" property
+            'text-field': ['get', 'countyName'],
+            'text-font': [
+                'Halyard Text Book',
+                'Arial Unicode MS Bold'
+            ],
+            'text-size':10,
+            'text-offset': [0, 0],
+            // 'text-anchor': 'center'
+            },
+        'paint':{
+            'text-color': "#000",
+        }
+    }, firstSymbolId);
+
+    map.addLayer({
         'id': 'region_outline',
         'type': 'line',
         'source':'regions',
@@ -151,7 +193,7 @@ map.on('load', function () {
             // get the title name from the source's "title" property
             'text-field': ['get', 'id'],
             'text-font': [
-            'Open Sans Semibold',
+            'Halyard Text Book',
             'Arial Unicode MS Bold'
             ],
             'text-size': 42,
