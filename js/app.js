@@ -41,6 +41,22 @@ map.on('load', function () {
         data: "https://texashealthdata.com/CPAN/region",
         generateId: true,
     })
+    map.addSource("regions-points", {
+        type: "geojson",
+        data: {
+            "type": "FeatureCollection",
+            "name": "points",
+            "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+            "features": [
+                { "type": "Feature", "properties": { "id": 4, "region_num": 4, "name": "West Region" }, "geometry": { "type": "Point", "coordinates": [ -101.593537621890576, 32.953253993573767 ] } },
+                { "type": "Feature", "properties": { "id": 1, "region_num": 1, "name": "North and Northeast Regions" }, "geometry": { "type": "Point", "coordinates": [ -95.846314200881622, 32.964545198723101 ] } },
+                { "type": "Feature", "properties": { "id": 3, "region_num": 3, "name": "Valley and Central Regions" }, "geometry": { "type": "Point", "coordinates": [ -98.586269671249539, 29.809672353613244 ] } },
+                { "type": "Feature", "properties": { "id": 2, "region_num": 2, "name": "South and Southeast Regions" }, "geometry": { "type": "Point", "coordinates": [ -94.85879539213235, 30.331518752689654 ] } }
+            ]
+        },
+            
+        generateId: true,
+    })
 
     map.addLayer({
         'id': 'region_fill',
@@ -125,6 +141,45 @@ map.on('load', function () {
         }
     }, firstSymbolId);
 
+    map.addLayer({
+        'id': 'region_num',
+        'type': 'symbol',
+        'source':'regions-points',
+        'maxzoom': zoomThreshold,
+        'layout': {
+            // get the title name from the source's "title" property
+            'text-field': ['get', 'id'],
+            'text-font': [
+            'Open Sans Semibold',
+            'Arial Unicode MS Bold'
+            ],
+            'text-size': 42,
+            'text-offset': [0, 0],
+            
+            // 'text-anchor': 'center'
+            },
+        'paint':{
+            'text-color': "#444",
+        }
+    });
+    // map.addLayer({
+    //     'id': 'region_names',
+    //     'type': 'symbol',
+    //     'source':'regions-points',
+    //     'maxzoom': zoomThreshold,
+    //     'layout': {
+    //         // get the title name from the source's "title" property
+    //         'text-field': ['get', 'name'],
+    //         'text-font': [
+    //         'Open Sans Semibold',
+    //         'Arial Unicode MS Bold'
+    //         ],
+    //         'text-size': 12,
+    //         'text-offset': [0, 1.25],
+    //         // 'text-anchor': 'center'
+    //         }
+    // });
+
 
     map.on('mousemove', 'inst_fills', function (e) {
         if (e.features.length > 0) {
@@ -172,9 +227,10 @@ map.on('load', function () {
             var inst = e.features[0].properties.name
             var region_num = e.features[0].properties.region_num
             var inst_num = e.features[0].properties.dial_num
+            var logoPath = "./assets/inst-logos/"+ e.features[0].properties.id + ".png"
             $("#popup2").html("<h2>" + inst+"</h2>")
             $("#popup2").append("<p>Region code: <span>" + region_num+"</span></p><p>Institution Code: <span>" + inst_num+"</span></p>")
-
+            $("#popup2").prepend("<img src='"+logoPath+"'>")
         }else{
             $("#popup2").css("display", "none")
         }
