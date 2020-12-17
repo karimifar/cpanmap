@@ -140,7 +140,10 @@
         font-size: 18px;
     }
     .inst-logo{
-        margin-top: 5px
+        max-width: 150px;
+        max-height: 70px;
+        padding: 5px;
+        margin-top: 0px
     }
     #logowrap{
         width: 100px;
