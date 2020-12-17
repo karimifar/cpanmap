@@ -143,9 +143,9 @@ map.on('load', function () {
             // 'text-anchor': 'center'
             },
         'paint':{
-            'text-color': "#000",
-            'text-halo-color': "#fff",
-            'text-halo-width': 0.5,
+            'text-color': "#222",
+            // 'text-halo-color': "#fff",
+            // 'text-halo-width': 0.1,
         }
     }, firstSymbolId);
 

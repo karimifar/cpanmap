@@ -1,5 +1,5 @@
 *{
-    font-family: halyard-text, sans-serif;
+    font-family: 'halyard-text', sans-serif;
 }
 #container{
     position: relative;
@@ -21,7 +21,7 @@
     box-shadow: #eee 0 0 10px;
     padding: 20px;
     width:40%;
-    max-width: 400px;
+    max-width: 500px;
     z-index:2;
 }
 #map{
