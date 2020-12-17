@@ -1,10 +1,11 @@
 *{
     font-family: halyard-text, sans-serif;
 }
-#map{
-    width:100%;
-    height: 100%;
+#container{
     position: relative;
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 #mapwrap{
     position: relative;
@@ -12,6 +13,23 @@
     margin: auto;
     height: 100vh;
 }
+#info{
+    position: absolute;
+    left: 0;
+    height: 100%;
+    background: #D9E1E2bb;
+    box-shadow: #eee 0 0 10px;
+    padding: 20px;
+    width:40%;
+    max-width: 400px;
+    z-index:2;
+}
+#map{
+    width:100%;
+    height: 100%;
+    position: relative;
+}
+
 
 #popup1{
     position: absolute;
@@ -25,10 +43,7 @@
 #popup1 p{
     margin-bottom: 0;
 }
-#popup2 p{
-    margin-bottom: 0;
-    font-size: 18px;
-}
+
 #popup1 p.inst-name{
     font-size: 14px;
     color:#000;
@@ -36,53 +51,99 @@
     /* text-shadow: #000 0px 0px 5px; */
 }
 #popup2 p span{
-    font-weight: 900;
+    font-weight: 700;
+    color: #fff;
+    background-color: #BE3A34;
+    padding: 0px 6px 2px;
+    border-radius: 2px;
+
 }
 
+
+.general-info{
+    margin-top: 30%;
+}
+
+.general-info img{
+    width:200px;
+}
+.general-info h2{
+    font-family: 'halyard-display', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #2F2951;
+}
+.general-info h2 a{
+    color: #0067B9
+}
+.general-info p{
+    font-size: 18px;
+    color: #2F2951;
+    font-weight: 300;
+}
 #popup2{
     display: none;
-    position: absolute;
-    top:20px;
-    left: 20px;
-    background: #ffffffff;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid #0067B9;
+    padding: 20px 10px;
+    background: #fff;
     box-shadow: #eee 0 0 10px;
-    border-radius: 5px;
-    padding: 10px;
-    width:40%;
-    max-width: 600px;
 }
-#popup2 img{
-    max-width: 350px;
-    max-height: 100px;
-    padding: 5px;
-    margin-bottom: 10px;
-}
-#popup2 h2{
-    font-family: 'halyard-display', sans-serif;
+#popup2 .instructions{
+    width: 100%;
+    line-height: 1.9em;
     font-size: 24px;
 }
+.inst-logo{
+    max-width: 250px;
+    max-height: 100px;
+    padding: 5px;
+    margin-top: 50px
+}
+.inst-logo img{
+    max-width: 100%;
+    max-height: 100%;
+    padding: 5px;
+}
 
+#logowrap{
+    /* position: absolute;
+    bottom:40px;
+    right: 10px; */
+    width: 150px;
+}
+#logowrap img{
+    width: 100%;
+}
 
-@media only screen and (max-width: 900px) {
-    #popup2{
-        top:0px;
-        left: 0px;
-
-        border-radius: 5px;
-        padding: 10px;
+@media only screen and (max-width: 991px) {
+    #info{
+        position: absolute;
+        left: 0;
+        height: auto;
+        padding: 20px;
         width:100%;
-        max-width: 600px;
+        max-width: unset;
+        z-index:2;
     }
-
-    #popup2 img{
-        max-width: 225px;
-        max-height: 70px;
-        padding: 5px;
-        margin-bottom: 10px;
+    .general-info{
+        margin-top: 30px;
     }
-    #popup2 h2{
-        font-family: 'halyard-display', sans-serif;
+    .general-info h2{
+        font-size: 24px;
+    }
+    .general-info p{
+        font-size: 14px;
+    }
+    #popup2 .instructions{
         font-size: 18px;
+    }
+    .inst-logo{
+        margin-top: 5px
+    }
+    #logowrap{
+        width: 150px;
     }
 }
 

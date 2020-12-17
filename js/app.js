@@ -14,8 +14,8 @@ var outlines = ["#005782", "#ED8C00", "#C7362D", "#00973A"]
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/karimifar/ck2ey2mad1rtp1cmppck4wq2d',
-    center: [-99.113241, 31.079125],
-    zoom: 5,
+    center: [-100.113241, 31.079125],
+    zoom: 4.8,
     maxZoom: 9,
     minZoom:3.5
     // maxBounds: bounds,
@@ -56,7 +56,7 @@ map.on('load', function () {
             "name": "points",
             "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
             "features": [
-                { "type": "Feature", "properties": { "id": 4, "region_num": 4, "name": "West Region" }, "geometry": { "type": "Point", "coordinates": [ -101.593537621890576, 32.953253993573767 ] } },
+                { "type": "Feature", "properties": { "id": 4, "region_num": 4, "name": "West Region" }, "geometry": { "type": "Point", "coordinates": [ -101.593537621890576, 32.5 ] } },
                 { "type": "Feature", "properties": { "id": 1, "region_num": 1, "name": "North and Northeast Regions" }, "geometry": { "type": "Point", "coordinates": [ -95.846314200881622, 32.964545198723101 ] } },
                 { "type": "Feature", "properties": { "id": 3, "region_num": 3, "name": "Valley and Central Regions" }, "geometry": { "type": "Point", "coordinates": [ -98.586269671249539, 29.809672353613244 ] } },
                 { "type": "Feature", "properties": { "id": 2, "region_num": 2, "name": "South and Southeast Regions" }, "geometry": { "type": "Point", "coordinates": [ -94.85879539213235, 30.331518752689654 ] } }
@@ -130,7 +130,7 @@ map.on('load', function () {
         'id': 'counties-text',
         'type': 'symbol',
         'source':'counties',
-        'minzoom': zoomThreshold+0.7,
+        'minzoom': zoomThreshold,
         'layout': {
             // get the title name from the source's "title" property
             'text-field': ['get', 'countyName'],
@@ -144,6 +144,8 @@ map.on('load', function () {
             },
         'paint':{
             'text-color': "#000",
+            'text-halo-color': "#fff",
+            'text-halo-width': 0.5,
         }
     }, firstSymbolId);
 
@@ -191,18 +193,24 @@ map.on('load', function () {
         'maxzoom': zoomThreshold,
         'layout': {
             // get the title name from the source's "title" property
-            'text-field': ['get', 'id'],
+            'text-field': ['get', 'name'],
             'text-font': [
-            'Halyard Text Book',
+            'Halyard Text Bold',
             'Arial Unicode MS Bold'
             ],
-            'text-size': 42,
+            'text-size': 18,
             'text-offset': [0, 0],
-            
+            // 'text-ignore-placement': true,
+            'text-max-width': 5,
+            'text-line-height':1,
             // 'text-anchor': 'center'
             },
         'paint':{
-            'text-color': "#444",
+            'text-color': "#2F2951",
+            'text-halo-color': "#fff",
+            'text-halo-width': 1,
+            'text-halo-blur': 1,
+            
         }
     });
     // map.addLayer({
@@ -266,14 +274,13 @@ map.on('load', function () {
     map.on('click', 'inst_fills',function (e) {
         console.log(hoveredInstId)
         if (hoveredInstId || hoveredInstId==0) {
-            $("#popup2").css("display", "block")
+            $("#popup2").css("display", "flex")
             var inst = e.features[0].properties.name
             var region_num = e.features[0].properties.region_num
             var inst_num = e.features[0].properties.dial_num
             var logoPath = "./assets/inst-logos/"+ e.features[0].properties.id + ".png"
-            $("#popup2").html("<h2>" + inst+"</h2>")
-            $("#popup2").append("<p>Region code: <span>" + region_num+"</span></p><p>Institution Code: <span>" + inst_num+"</span></p>")
-            $("#popup2").prepend("<img src='"+logoPath+"'>")
+            $("#popup2").html("<div class='instructions'><p>Once you've connected, press: <br><span>" + region_num+"</span> for region and <br><span>" + inst_num+"</span> for institution</p></div>")
+            $("#popup2").append("<div class='inst-logo'><img src='"+logoPath+"'></div>")
         }else{
             $("#popup2").css("display", "none")
         }
@@ -282,7 +289,7 @@ map.on('load', function () {
     map.on('click', function (e) {
         console.log(hoveredInstId)
         if (hoveredInstId || hoveredInstId==0) {
-            $("#popup2").css("display", "block")
+            $("#popup2").css("display", "flex")
             
         }else{
             $("#popup2").css("display", "none")
