@@ -51,7 +51,22 @@
     font-weight: 100;
     /* text-shadow: #000 0px 0px 5px; */
 }
-#popup2 p span{
+#popup2{
+    position: relative;
+    display: none;
+}
+#exit{
+    position: absolute;
+    top:0;
+    right:0;
+    width:25px;
+    height: 25px;
+    background: #000;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+#instructions p span{
     font-weight: 700;
     color: #fff;
     background-color: #BE3A34;
@@ -78,12 +93,12 @@
     color: #0067B9
 }
 .general-info p{
-    font-size: 18px;
+    font-size: 20px;
     color: #2F2951;
     font-weight: 300;
 }
-#popup2{
-    display: none;
+#instructions{
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     border-top: 1px solid #0067B9;
@@ -91,7 +106,7 @@
     background: #fff;
     box-shadow: #eee 0 0 10px;
 }
-#popup2 .instructions{
+#instructions .instructions{
     width: 100%;
     line-height: 1.9em;
     font-size: 24px;
@@ -137,9 +152,9 @@
         font-size: 24px;
     }
     .general-info p{
-        font-size: 14px;
+        font-size: 18px;
     }
-    #popup2 .instructions{
+    #instructions .instructions{
         font-size: 18px;
     }
     .inst-logo{

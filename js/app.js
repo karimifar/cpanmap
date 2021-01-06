@@ -268,19 +268,17 @@ map.on('load', function () {
         map.getCanvas().style.cursor = "auto"
     });
 
-    // $("#mapwrap").on("click", function(){
-    //     $("#popup2").css("display", "none")
-    // })
+
     map.on('click', 'inst_fills',function (e) {
         console.log(hoveredInstId)
         if (hoveredInstId || hoveredInstId==0) {
-            $("#popup2").css("display", "flex")
+            $("#popup2").css("display", "block")
             var inst = e.features[0].properties.name
             var region_num = e.features[0].properties.region_num
             var inst_num = e.features[0].properties.dial_num
             var logoPath = "./assets/inst-logos/"+ e.features[0].properties.id + ".png"
-            $("#popup2").html("<div class='instructions'><p>Once you've connected, press: <br><span>" + region_num+"</span> for region and <br><span>" + inst_num+"</span> for institution</p></div>")
-            $("#popup2").append("<div class='inst-logo'><img src='"+logoPath+"'></div>")
+            $("#instructions").html("<div class='instructions'><p>Once you've connected, press: <br><span>" + region_num+"</span> for region and <br><span>" + inst_num+"</span> for institution</p></div>")
+            $("#instructions").append("<div class='inst-logo'><img src='"+logoPath+"'></div>")
         }else{
             $("#popup2").css("display", "none")
         }
@@ -289,7 +287,7 @@ map.on('load', function () {
     map.on('click', function (e) {
         console.log(hoveredInstId)
         if (hoveredInstId || hoveredInstId==0) {
-            $("#popup2").css("display", "flex")
+            $("#popup2").css("display", "block")
             
         }else{
             $("#popup2").css("display", "none")
@@ -308,6 +306,11 @@ $("#mapwrap").on("mousemove", function(e){
     var mouseY=e.clientY
     $("#popup1").css("top", mouseY-divY+18)
     $("#popup1").css("left", mouseX-divX-100)
+})
+
+$("#exit").on("click", function(){
+    
+    $("#popup2").css("display", "none")
 })
 
 
