@@ -272,13 +272,13 @@ map.on('load', function () {
     map.on('click', 'inst_fills',function (e) {
         console.log(hoveredInstId)
         if (hoveredInstId || hoveredInstId==0) {
-            $("#popup2").css("display", "block")
+            
             var inst = e.features[0].properties.name
+            var inst_id= e.features[0].properties.id
             var region_num = e.features[0].properties.region_num
             var inst_num = e.features[0].properties.dial_num
-            var logoPath = "./assets/inst-logos/"+ e.features[0].properties.id + ".png"
-            $("#instructions").html("<div class='instructions'><p>Once you've connected, press: <br><span>" + region_num+"</span> for region and <br><span>" + inst_num+"</span> for institution</p></div>")
-            $("#instructions").append("<div class='inst-logo'><img src='"+logoPath+"'></div>")
+
+            showPopup(inst_id,region_num,inst_num);
         }else{
             $("#popup2").css("display", "none")
         }
@@ -314,3 +314,45 @@ $("#exit").on("click", function(){
 })
 
 
+
+$("#zip-submit").on("click", function(event){
+    event.preventDefault();
+    search_input = $("#zip-input").val().trim();
+    
+    if (isNaN(search_input)){
+       alert("Please enter a Zip code")
+    }else{
+        var req_url= "https://texashealthdata.com/api/cpan/codebyzip/" + search_input;
+        
+        $.get(req_url, function(data){
+            if(data[0]){
+                console.log(data)
+                var inst_id = data[0].hub;
+                var reg_code = data[0].menu[0];
+                var inst_code = data[0].menu[1];
+
+                var z_lat = data[0].zip_county.z_lat;
+                var z_lng = data[0].zip_county.z_lng;
+
+                map.flyTo({
+                    center:[z_lng,z_lat],
+                    zoom: 10
+                })
+                
+                showPopup(inst_id,reg_code,inst_code)
+            }else{
+                alert("please enter a valid zip code")
+            }
+            
+        })
+        
+    }
+    
+})
+
+function showPopup(id,reg_code,inst_code){
+    $("#popup2").css("display", "block")
+    var logoPath = "./assets/inst-logos/"+ id + ".png"
+    $("#instructions").html("<div class='instructions'><p>Once you've connected, press: <br><span>" + reg_code+"</span> for region and <br><span>" + inst_code+"</span> for institution</p></div>")
+    $("#instructions").append("<div class='inst-logo'><img src='"+logoPath+"'></div>")
+}

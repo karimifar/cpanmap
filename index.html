@@ -22,8 +22,9 @@
     <!-- MAPBOX -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
-
-    
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  
 
     <title>Title</title>
 </head>
@@ -38,8 +39,14 @@
             <div class="general-info">
                 
                 <h2>Dial <a href="tel:888-901-2726">(888)901-2726</a> to reach CPAN</h2>
-                <p>Zoom and click on your county for simple switchboard instructions</p>
-
+                <p>Type in your Zip Code or zoom and click on your county for simple switchboard instructions</p>
+                <form id="zip-form">
+                    <label for="zipcode">Enter your Zip Code: </label>
+                    <div class="input-group">
+                        <input autocomplete="off" name="zipcode" id="zip-input" placeholder="EX. 76104" value="" autofocus>
+                        <button id="zip-submit" type="submit" class="submit-btn btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
             </div>
             <div id="popup2">
                 <div id="exit" title="close">X</div>
