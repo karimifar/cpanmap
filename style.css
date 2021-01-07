@@ -17,10 +17,10 @@
     position: absolute;
     left: 0;
     height: 100%;
-    background: #D9E1E2bb;
+    background: #D9E1E2cc;
     box-shadow: #eee 0 0 10px;
     padding: 20px;
-    width:40%;
+    width:35%;
     max-width: 500px;
     z-index:2;
     overflow: auto;
@@ -108,11 +108,15 @@
 }
 #instructions .instructions{
     width: 100%;
-    line-height: 1.9em;
     font-size: 24px;
+    line-height: 1em;
+
+}
+#instructions .instructions span{
+    line-height: 1.9em;
 }
 .instructions p{
-    margin-bottom: 8px;
+    margin-bottom: 15px;
 }
 .inst-logo{
     max-width: 250px;
@@ -154,6 +158,14 @@
     margin-left: 5px;
 }
 
+@media only screen and (max-width: 1199px) {
+    .general-info h2{
+        font-size: 28px;
+    }
+    .general-info p{
+        font-size: 18px;
+    }
+}
 @media only screen and (max-width: 800px) {
     #info{
         position: absolute;

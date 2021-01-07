@@ -353,6 +353,6 @@ $("#zip-submit").on("click", function(event){
 function showPopup(id,reg_code,inst_code){
     $("#popup2").css("display", "block")
     var logoPath = "./assets/inst-logos/"+ id + ".png"
-    $("#instructions").html("<div class='instructions'><p>Once you've connected, press: <br><span>" + reg_code+"</span> for region and <br><span>" + inst_code+"</span> for institution</p></div>")
+    $("#instructions").html("<div class='instructions'><p>Once you've connected, press:<p> <span>" + reg_code+"</span> for region and <br><span>" + inst_code+"</span> for institution</p></div>")
     $("#instructions").append("<div class='inst-logo'><img src='"+logoPath+"'></div>")
 }
